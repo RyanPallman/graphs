@@ -25,16 +25,33 @@ public class Graph {
                 }
             }
             // debugging - prints read in matrix
-            for (int[] arr : matrix) {
-                for (int i : arr) {
-                    if (i == Integer.MAX_VALUE)
-                        System.out.print("∞,");
-                    else System.out.print(i + ",");
-                }
-                System.out.println("");
-            }
+            print_matrix();
         } catch (IOException e) {
             System.out.println("File not found at: " + inputPath);
         }
+    }
+
+    public void warshall() {
+
+    }
+
+    public void print_matrix() {
+        print_header();
+        for (int i = 0; i < matrix.length; i++) {
+            System.out.print(names[i] + "  ");
+            for (int j = 0; j < matrix[i].length; j++) {
+                if (matrix[i][j] == Integer.MAX_VALUE)
+                    System.out.print("\u221e ");
+                else System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    private void print_header() {
+        String out = "   ";
+        for (char c : names)
+            out += c + " ";
+        System.out.println(out);
     }
 }
