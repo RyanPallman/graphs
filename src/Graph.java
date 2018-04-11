@@ -45,12 +45,10 @@ public class Graph {
                 }
             }
             // debugging - prints read in matrix
-            print_matrix();
+            //print_matrix();
             // debugging - lists all edges
-            for (Edge e : edges)
-                System.out.println("Edge(" + e.getVertex1().getLabel() + ", " + e.getVertex2().getLabel() + ") Weight: " + e.getWeight());
-            // calling Floyd-Warshall
-            warshall();
+            //for (Edge e : edges)
+            //    System.out.println("Edge(" + e.getVertex1().getLabel() + ", " + e.getVertex2().getLabel() + ") Weight: " + e.getWeight());
         } catch (IOException e) {
             System.out.println("File not found at: " + inputPath);
         }
@@ -80,24 +78,40 @@ public class Graph {
                 e[i] = Integer.MAX_VALUE;
             }
         }
+        // setting edges
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                if (matrix[i][j] != Integer.MAX_VALUE) {
+                    d[i][j] = matrix[i][j];
+                }
+            }
+        }
+        // prints the read in matrix
+        System.out.println("Read in matrix for Floyd-Warshall algorithm:");
+        print_matrix(d);
+        System.out.println();
         // setting the diagonal to zero in d and weight of edges
         for (int j = 0; j < d.length; j++) {
             for (int k = 0; k < d[j].length; k++)
                 if (j == k)
                     d[j][k] = 0;
-                else {
-                    if (adjacencyList.get(new Vertex(names[j])) != null) {
-                        for (Edge e : adjacencyList.get(new Vertex(names[j]))) {
-                            if (e.getVertex2().getLabel() == names[k])
-                                d[j][k] = e.getWeight();
-                        }
+        }
+        // prints the matrix after the diagonal of zeroes is set
+        // print_matrix(d);
+
+        // actual algorithm
+        for (int k = 0; k < names.length; k++) {
+            for (int i = 0; i < names.length; i++) {
+                for (int j = 0; j < names.length; j++) {
+                    if (d[i][k] != Integer.MAX_VALUE && d[k][j] != Integer.MAX_VALUE) {
+                        if (d[i][j] > d[i][k] + d[k][j])
+                            d[i][j] = d[i][k] + d[k][j];
                     }
                 }
-        }
-
-        for (int[] e : d) {
-            for (int i : e)
-                System.out.print(i + " ");
+            }
+            // prints out each iteration
+            print_matrix(d);
+            System.out.println();
         }
     }
 
@@ -111,6 +125,21 @@ public class Graph {
                 if (matrix[i][j] == Integer.MAX_VALUE)
                     System.out.print("\u221e ");
                 else System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+
+    // overloading
+    public void print_matrix(int[][] input) {
+        print_header();
+        for (int i = 0; i < input.length; i++) {
+            System.out.print(names[i] + "  ");
+            for (int j = 0; j < input[i].length; j++) {
+                if (input[i][j] == Integer.MAX_VALUE)
+                    System.out.print("\u221e ");
+                else System.out.print(input[i][j] + " ");
             }
             System.out.println();
         }
