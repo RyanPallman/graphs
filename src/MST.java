@@ -98,11 +98,11 @@ class MST {
         krusTree = new int[2][matrix.length - 1];
 
 
-        while (edges < matrix.length - 1 || exCheck < matrix.length) {
+        while (edges < matrix.length - 1 && exCheck < matrix.length) {
             Vertice check = mstQ.poll();
             //If the sets are the same then join
             if (dis.find(check.key) != dis.find(check.connect)) {
-                //Join 
+                //Join
                 dis.join(check.key, check.connect);
                 //Add to the tree
                 krusTree[0][edges] = check.key;
