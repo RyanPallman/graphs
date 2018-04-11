@@ -5,7 +5,7 @@
 * Kruskal's algorithms
 */ 
 
-package graphAlgorithms;
+//package graphAlgorithms;
 
 public class Vertice implements Comparable<Vertice>
 {

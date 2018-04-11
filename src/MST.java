@@ -4,7 +4,7 @@
 * Overview: Create a minimum spanning tree using both Prims and 
 * Kruskal's algorithms
 */ 
-package graphAlgorithms;
+//package graphAlgorithms;
 
 import java.util.PriorityQueue;
 
@@ -12,6 +12,7 @@ class MST
 {
     public static final int INF = Integer.MAX_VALUE;
     private int primsTree[][];                          //Holds the edges for prims algorithm
+    private int krusTree[][];
     PriorityQueue <Vertice> mstQ= new PriorityQueue<>();
     private int verCheck[];                       //Holds verticis already in the tree
     int matrix[][];                                //Adjacency matrix
@@ -88,6 +89,54 @@ class MST
         printResults(primsTree);
     }
     
+    public void kruskalsAlgo(int start)
+    {
+        //put all edges in the queue
+        for(int i=0; i< matrix.length; i++)
+        {
+            for(int j=i; j<matrix[i].length; j++)
+            {
+                if(matrix[i][j]<INF)
+                {
+                    mstQ.add(new Vertice(matrix[i][j],i,j));
+                }
+            }
+        }
+        
+        //Check variables
+        int edges =0;
+        int exCheck =0;
+        
+        //Kind of a disjoin set
+        Set dis = new Set();
+        
+        //initialize krusTree
+        krusTree = new int[2][matrix.length -1];
+                
+        
+        while(edges<matrix.length-1 || exCheck <matrix.length)
+        {
+            Vertice check = mstQ.poll();
+            //If the sets are the same then join
+            if(dis.find(check.key) != dis.find(check.connect))
+            {
+                //Join 
+                dis.join(check.key, check.connect);
+                //Add to the tree
+                krusTree[0][edges]= check.key;
+                krusTree[1][edges]= check.connect;
+                edges++;
+            }
+            exCheck++;
+        }
+        
+        //Print the results
+        System.out.println("Kruskal’s Algoritm Edges:");
+        printResults(krusTree);
+    }
+    
+    
+    
     //Find adjacent verticies
     private void findAdjacent(int location)
     {
@@ -129,6 +178,7 @@ class MST
         {
             System.out.printf("%c <--> %c\n", inttoChar(toPrint[0][i]), inttoChar(toPrint[1][i]));
         }
+        System.out.println();
     }
     
     //Returns char for the actual vertice
