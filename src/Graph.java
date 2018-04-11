@@ -130,4 +130,8 @@ public class Graph {
     public int getGraphSize() {
         return names.length;
     }
+
+    public int[][] getMatrix() {
+        return matrix;
+    }
 }

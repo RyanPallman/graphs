@@ -14,7 +14,7 @@ class MST
     private int primsTree[][];                          //Holds the edges for prims algorithm
     private int krusTree[][];
     PriorityQueue <Vertice> mstQ= new PriorityQueue<>();
-    private int verCheck[];                       //Holds verticis already in the tree
+    private int verCheck[];                       //Holds vertices already in the tree
     int matrix[][];                                //Adjacency matrix
     int count = 0;
             
@@ -25,7 +25,7 @@ class MST
     
     public void primsAlgo(int start)
     {
-        //add the starting vertice to the tree
+        //add the starting vertex to the tree
         primsTree = new int[2][matrix.length -1];
        
         //initialize the verCheck array
@@ -34,11 +34,11 @@ class MST
         {
             verCheck[i]=INF;
         }
-        
-        //Put adjacent veticies to start in the queue
+
+        //Put adjacent vertices to start in the queue
         findAdjacent(start);
-        
-        //Put the start verticie in the check array
+
+        //Put the start vertex in the check array
         verCheck[0]=start;
         
         while(mstQ.size()>0)
@@ -49,7 +49,7 @@ class MST
             int i=0;
             while(flag)
             {
-                //All vetices on the tree have been checked so add to the tree
+                //All vertices on the tree have been checked so add to the tree
                 if(verCheck.length == i)
                 {
                     if(count == primsTree[0].length)
