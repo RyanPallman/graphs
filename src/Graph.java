@@ -69,21 +69,22 @@ public class Graph {
                     d[j][k] = 0;
         }
         // prints the matrix after the diagonal of zeroes is set
-        // print_matrix(d);
+        print_matrix(d);
 
         // actual algorithm
         for (int k = 0; k < names.length; k++) {
             for (int i = 0; i < names.length; i++) {
                 for (int j = 0; j < names.length; j++) {
                     if (d[i][k] != Integer.MAX_VALUE && d[k][j] != Integer.MAX_VALUE) {
-                        if (d[i][j] > d[i][k] + d[k][j])
+                        if (d[i][j] > d[i][k] + d[k][j]) {
                             d[i][j] = d[i][k] + d[k][j];
+                            // value was changed -- graph needs to be printed again
+                            System.out.println();
+                            print_matrix(d);
+                        }
                     }
                 }
             }
-            // prints out each iteration
-            print_matrix(d);
-            System.out.println();
         }
     }
 
