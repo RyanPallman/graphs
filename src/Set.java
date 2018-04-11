@@ -3,7 +3,8 @@
 * Date: 4/10/2018
 * Overview: Somewhat of a disjoint set for Kruskal’s Algoritm
 */ 
-package graphAlgorithms;
+
+//package graphAlgorithms;
 
 
 public class Set
