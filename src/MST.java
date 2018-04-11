@@ -101,7 +101,7 @@ class MST {
         while (edges < matrix.length - 1 && exCheck < matrix.length) {
             Vertice check = mstQ.poll();
             //If the sets are the same then join
-            if (dis.find(check.key) != dis.find(check.connect)) {
+            if (check != null && dis.find(check.key) != dis.find(check.connect)) {
                 //Join
                 dis.join(check.key, check.connect);
                 //Add to the tree
